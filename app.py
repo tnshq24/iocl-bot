@@ -12,23 +12,24 @@ app = Flask(__name__)
 
 # Extract document name
 
-def extract_document_name(text):
-        """
-        Extracts the document name from the text in the format 
-        (DOCUMENT_NAME.pdf, Lines X-Y).
+def extract_url(text):
+    """
+    Extracts the URL from the chatbot response.
 
-        Args:
-            text (str): The input text containing the document name.
+    Args:
+        text (str): The chatbot response containing the URL.
 
-        Returns:
-            str: The extracted document name, or None if not found.
-        """
-        pattern = r'\(([^,]+\.pdf), Lines \d+-\d+\)'
-        match = re.search(pattern, text)
-
-        if match:
-            return match.group(1)  # Return the document name part of the match
-        return None  # Return None if no match is found
+    Returns:
+        str: The extracted URL, or None if no URL is found.
+    """
+    # Regular expression pattern to match URLs
+    pattern = r'https?://[^\s\)]+'
+    
+    # Search for the pattern in the text
+    match = re.search(pattern, text)
+    
+    # Return the matched URL if found, else return None
+    return match.group(0) if match else None
 
 def is_within_bbox(bbox: list[float], constraint_bbox: list[float], margin=10):
     x0, y0, x1, y1 = bbox
@@ -120,9 +121,7 @@ def view_pdf():
     # Get the chatbot response passed as a query parameter
     chatbot_response = request.args.get('response', '')
     
-    document_name = extract_document_name(chatbot_response)
-
-    PDF_URL = f"https://ioclhrchatgpt.blob.core.windows.net/hrhbtb-pdf-chunks/{document_name}"
+    PDF_URL = extract_url(chatbot_response)
 
     # Fetch PDF file from the external URL
     response = requests.get(PDF_URL)
