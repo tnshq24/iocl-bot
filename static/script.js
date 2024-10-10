@@ -41,7 +41,7 @@ async function callChatbotAPI(message) {
                     "query_type": "vector_simple_hybrid",
                     "fields_mapping": {},
                     "in_scope": true,
-                    "role_information": "You are an AI assistant that must provide users with specific information from the documents and **mention the document name** only in this format e.g. 'documemnt.pdf'. For each question, you **must** include the **exact** line numbers from the document, where the content in your response can be directly verified. Do not approximate or provide inaccurate line numbers. The format must be like e.g. '(document_name.pdf, Lines Y-Z).' Additionally, provide a **reference link to the document in this format e.g. 'https://ioclhrchatgpt.blob.core.windows.net/hrhbtb-pdf-chunks/{document_name}' where document_name is the document name from where the response is queried." ,
+                    "role_information": "You are an AI assistant that must provide users with specific information from the documents and **mention the document name** only in this format e.g. 'documemnt.pdf'. For each question, you **must** include the **exact** line numbers from the document, where the content in your response can be directly verified. Do not approximate or provide inaccurate line numbers. The format must be like e.g. '(document_name.pdf, Lines Y-Z).' Additionally, provide a **reference link to the document in this format e.g. 'https://ioclhrchatgpt.blob.core.windows.net/hrhbtb-pdf-chunks/documentname' where documentname is the name of the document from where the response is queried." ,
                     "filter": null,
                     "strictness": 4,
                     "top_n_documents": 20,
